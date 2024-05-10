@@ -1,18 +1,24 @@
-import { Link } from "react-router-dom";
-import register from "../../assets/Register.png";
+import { useForm } from "react-hook-form";
+import HeaderBanner from "../../Components/headerBanner/HeaderBanner";
+import registerPhoto from "../../assets/Register.png";
 const Register = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const handleRegister = (data) => {
+    console.log(data);
+  };
   return (
-    <div>
-      <div className="bg-[#4CCE5B] space-y-3 h-72 flex justify-center flex-col items-center text-4xl font-bold">
-        <h1 className="text-white">Register</h1>
-        <p className="text-sm text-white">
-          <Link to="/" className="hover:text-black">
-            Home{" "}
-          </Link>{" "}
-          <span>{">"} </span> Register
-        </p>
+    <div className="pb-10">
+      <div className="h-[343px]">
+        <div className=" w-full ">
+          <HeaderBanner heading="Register"></HeaderBanner>
+        </div>
       </div>
-      <div className=" max-w-7xl mx-auto h-screen">
+      <div className=" px-10 bg-white z-50 mx-auto  h-screen">
         <img src={""} alt="" />
         <h1 className="text-4xl font-extrabold text-center mt-5 my-8 text-black">
           Register in your Account
@@ -22,42 +28,61 @@ const Register = () => {
             <h1 className="text-2xl font-bold text-[#4CCE5B] mt-4 text-center">
               Please Register & Access Find Jobs{" "}
             </h1>
-            <form className="card-body px-4 ">
+            <form
+              onSubmit={handleSubmit(handleRegister)}
+              className="card-body px-4 "
+            >
               <div className="form-control">
                 <input
-                  type="text"
+                  {...register("name", { required: true })}
                   name="name"
                   placeholder="Name"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none "
-                  required
                 />
+                {errors.name && (
+                  <p className="text-sm text-red-700">
+                    This field is required.
+                  </p>
+                )}
               </div>
               <div className="form-control">
                 <input
                   type="email"
-                  name="email"
+                  {...register("email", { required: true })}
                   placeholder="Email"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none my-4"
-                  required
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-700">
+                    This field is required.
+                  </p>
+                )}
               </div>
               <div className="form-control">
                 <input
                   type="password"
-                  name="password"
+                  {...register("password", { required: true })}
                   placeholder="Password"
-                  className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none"
-                  required
+                  className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none my-4"
                 />
+                {errors.password && (
+                  <p className="text-sm text-red-700">
+                    This field is required.
+                  </p>
+                )}
               </div>
               <div className="form-control">
                 <input
                   type="text"
-                  name="photoURL"
+                  {...register("photoURL", { required: true })}
                   placeholder="photoURL"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none"
-                  required
                 />
+                {errors.photoURL && (
+                  <p className="text-sm text-red-700">
+                    This field is required.
+                  </p>
+                )}
               </div>
 
               <div className="text-red-500 font-bold text-center my-2">
@@ -80,7 +105,10 @@ const Register = () => {
             </form>
           </div>
           <div className="flex justify-center">
-            <img src={register} className=" w-[90%] flex justify-center " />
+            <img
+              src={registerPhoto}
+              className=" w-[90%] flex justify-center "
+            />
           </div>
         </div>
       </div>

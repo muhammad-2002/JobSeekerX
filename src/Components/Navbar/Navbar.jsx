@@ -3,7 +3,7 @@ import { IoMdLogIn } from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
 const Navbar = () => {
   return (
-    <div className="max-w-[1920px] mx-auto rale-way">
+    <div className="max-w-[1920px] w-full mx-auto fixed rale-way">
       <header className="bg-white shadow-lg  flex w-full  px-5 md:px-[50px] lg:px-[80px] xl:px-[120px] 2xl:px-[150px] md:py-6 py-3 ">
         {/* start */}
         <Link
