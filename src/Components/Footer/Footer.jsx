@@ -3,7 +3,7 @@ import { FaPhoneVolume } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div className=" bg-[#4CCE5B] z-10  text-white pt-5">
+    <div className=" bg-[#4CCE5B]  text-white pt-5">
       <footer className="footer px-2 py-4 max-w-7xl m-auto font-normal  flex justify-between md:flex-row flex-col items-start gap-5 text-base-content">
         <nav className="font-medium text-gray-600 space-y-4">
           <div className="flex gap-2 text-white items-center">
@@ -20,7 +20,7 @@ const Footer = () => {
             and <br /> earn money in the process! 118 E 128th St, <br /> East
             Chicago, IN 46312, US
           </p>
-          <div className="md:flex gap-4 justify-center items-center ">
+          <div className="md:flex text-white gap-4 justify-center items-center ">
             <BsFacebook className="text-2xl"></BsFacebook>
             <BsPinterest className="text-2xl"></BsPinterest>
             <BsTwitter className="text-2xl"></BsTwitter>
@@ -32,7 +32,7 @@ const Footer = () => {
               placeholder="Enter your Email"
               type="text"
             />
-            <button className="border-[#4B5563] border-2 px-4 py-1 outline-none hover:bg-[#242323] hover:border-[#242323] transition-all delay-75  bg-[#4B5563] text-white">
+            <button className="border-[#D0FED5] border-2 px-4 py-1 outline-none hover:bg-[#242323] hover:border-[#242323] transition-all delay-75  bg-[#D0FED5] text-black hover:text-white">
               Send
             </button>
           </div>
@@ -71,7 +71,7 @@ const Footer = () => {
           <a className="link link-hover text-white">Terms of use</a>
         </nav>
       </footer>
-      <footer className=" px-10 py-4 border-t bg-black text-base-content border-base-300">
+      <footer className=" px-10 py-4 border-t bg-[#D0FED5] text-[#393838] border-base-300">
         <div className="max-w-screen-xl	 mx-auto md:px-2">
           <div className="md:flex justify-between">
             <aside className="">

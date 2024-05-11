@@ -1,19 +1,45 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 import HeaderBanner from "../../Components/headerBanner/HeaderBanner";
+import useAuth from "../../Hook/useAuth";
 import registerPhoto from "../../assets/Register.png";
 const Register = () => {
+  const [passError, setPassError] = useState(null);
+  const { createEmailAndPassword, UpdateUser } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleRegister = (data) => {
-    console.log(data);
+  const handleRegister = async (data) => {
+    const { email, password, name, photoURL } = data;
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+      return setPassError(
+        "Please use Uppercase & Lowercase letter and length must be  6 character"
+      );
+    }
+    try {
+      const data = await createEmailAndPassword(email, password);
+      if (data) {
+        const UpdateData = await UpdateUser(name, photoURL);
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You are Successfully Registerd",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    } catch (err) {
+      console.log(err, "Error message");
+    }
   };
   return (
-    <div className="pb-10">
-      <div className="h-[343px]">
+    <div className=" mb-14">
+      <div className=" ">
         <div className=" w-full ">
           <HeaderBanner heading="Register"></HeaderBanner>
         </div>
@@ -65,6 +91,10 @@ const Register = () => {
                   placeholder="Password"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none my-4"
                 />
+                <p className="text-sm text-red-700">
+                  {" "}
+                  {passError && passError}
+                </p>
                 {errors.password && (
                   <p className="text-sm text-red-700">
                     This field is required.

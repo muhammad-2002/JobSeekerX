@@ -7,57 +7,81 @@ import { FcGoogle } from "react-icons/fc";
 import pass from "../../assets/Pass.png";
 // import img1 from "../../assets/login.svg";
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import HeaderBanner from "../../Components/headerBanner/HeaderBanner";
+import useAuth from "../../Hook/useAuth";
 
 const Login = () => {
   // const dynamicTitle = "Login";
   // const { logIn, googleSignIn } = useContext(AuthContext);
-  // const location = useLocation();
+  const location = useLocation();
   // // console.log(location);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const { logInEmailAndPassword } = useAuth();
+  const [passError, setPassError] = useState(null);
   // const [loginError, setLoginError] = useState();
   // const [loginSuccess, setLoginSuccess] = useState();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const handleSubmitLogin = (data) => {
+    const email = data.email;
+    const password = data.password;
 
-  // const handelSignIn = (e) => {
-  //   setLoginError("");
-  //   setLoginSuccess("");
-  //   e.preventDefault();
-  //   const name = e.target.name.value;
-  //   const email = e.target.email.value;
-  //   const password = e.target.password.value;
-  //   // console.log(name, email, password);
-  //   logIn(email, password)
-  //     .then((result) => {
-  //       console.log(result);
-  //       // alert('Login Successfully')
-  //       swal("Success!", "Login Successfully", "success");
-  //       navigate(location?.state ? location.state : "/");
-  //       return;
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       if (error.message) {
-  //         setLoginError("Password doesn't match");
-  //         return;
-  //       }
-  //     });
-  // };
+    if (!/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password)) {
+      return setPassError(
+        "Please use Uppercase & Lowercase letter and length must be  6 character"
+      );
+    }
+    logInEmailAndPassword(email, password)
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state ? location.state : "/");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You are Successfully Login",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Oops! Something weight wrong",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
+  };
 
-  // const handelGoogleSignIn = () => {
-  //   console.log("click google");
-  //   googleSignIn()
-  //     .then((result) => {
-  //       console.log(result);
-  //       swal("Success!", "Login Successfully", "success");
-  //       navigate(location?.state ? location.state : "/");
-  //       return;
-  //     })
-  //     .fatch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const { createForGoogle } = useAuth();
+  const handleGoogle = async () => {
+    try {
+      const data = await createForGoogle();
+      if (data) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "You are Successfully Login",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
 
+      navigate(location?.state ? location.state : "/");
+      return;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <HeaderBanner heading="Log in"></HeaderBanner>
@@ -71,11 +95,14 @@ const Login = () => {
             <h1 className="text-2xl font-bold text-[#4CCE5B] mt-4 text-center">
               Please Login & Access Find Jobs{" "}
             </h1>
-            <form className="card-body px-4 ">
+            <form
+              onSubmit={handleSubmit(handleSubmitLogin)}
+              className="card-body px-4 "
+            >
               <div className="form-control">
                 <input
                   type="text"
-                  name="name"
+                  {...register("name", { required: true })}
                   placeholder="Name"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none "
                   required
@@ -84,7 +111,7 @@ const Login = () => {
               <div className="form-control">
                 <input
                   type="email"
-                  name="email"
+                  {...register("email", { required: true })}
                   placeholder="Email"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none my-4"
                   required
@@ -93,11 +120,20 @@ const Login = () => {
               <div className="form-control">
                 <input
                   type="password"
-                  name="password"
+                  {...register("password", { required: true })}
                   placeholder="Password"
                   className=" w-full py-2 px-4  border-b-2 border-[#4CCE5B] rounded outline-none"
                   required
                 />
+                <p className="text-sm text-red-700">
+                  {" "}
+                  {passError && passError}
+                </p>
+                {errors.email && (
+                  <span className="text-sm text-red-700">
+                    This field is required
+                  </span>
+                )}
               </div>
               <h1 className="text-sm p-2">Forget Password</h1>
 
@@ -127,7 +163,10 @@ const Login = () => {
             </h2>
             <h4 className="text-md text-center">OR</h4>
             <div className="flex justify-center ">
-              <div className="cursor-pointer flex items-center my-2 gap-3 justify-center w-[250px] border p-2 rounded-full">
+              <div
+                onClick={handleGoogle}
+                className="cursor-pointer flex items-center my-2 gap-3 justify-center w-[250px] border p-2 rounded-full"
+              >
                 <FcGoogle className="text-xl"></FcGoogle>
                 <h2 className=" text-md font-bold ">Continue with Google</h2>
               </div>

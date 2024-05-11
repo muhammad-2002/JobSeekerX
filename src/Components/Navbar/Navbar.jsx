@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../Hook/useAuth";
 const Navbar = () => {
+  const { user, logOutUser } = useAuth();
+  const [openUser, setOpen] = useState(false);
+  const handleLogOut = async () => {
+    setOpen(false);
+    logOutUser();
+  };
   return (
     <div className="max-w-[1920px] w-full mx-auto fixed rale-way">
       <header className="bg-white shadow-lg  flex w-full  px-5 md:px-[50px] lg:px-[80px] xl:px-[120px] 2xl:px-[150px] md:py-6 py-3 ">
@@ -66,20 +74,32 @@ const Navbar = () => {
           </ul>
         </nav>
         {/* end */}
-        <div className="relative md:border-l flex items-center  justify-end w-full md:w-auto pl-5 ">
+
+        <div className="relative md:border-l flex items-center gap-3  justify-end w-full md:w-auto pl-5 ">
           <div className=" w-[50px]">
             <button className=" p-1 mr-3 flex items-center">
               <img className="md:w-full   w-10 object-cover" src={""} alt="" />
             </button>
           </div>
 
-          <button className="border-2 border-[#4CCE5B] hidden rounded-full w-[40px]">
-            <img src={""} alt="" className="w-full h-full rounded-full" />
-          </button>
+          {user && (
+            <button
+              onClick={() => setOpen(!openUser)}
+              className="border-2 border-[#4CCE5B]  rounded-full w-[40px]"
+            >
+              <img
+                src={user?.photoURL}
+                alt=""
+                className="w-full h-full rounded-full"
+              />
+            </button>
+          )}
 
           <Link
             to="/login"
-            className="bg-[#4CCE5B] inline-flex items-center justify-center gap-2 hover:bg-[#4CCE5B]  duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded"
+            className={`bg-[#4CCE5B] ${
+              user ? "hidden" : "block"
+            } inline-flex items-center justify-center gap-2 hover:bg-[#4CCE5B]  duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded`}
           >
             <p className="text-xl">
               <IoMdLogIn />
@@ -88,17 +108,23 @@ const Navbar = () => {
           </Link>
 
           {/* user Menu */}
-          <div
-            className={`absolute text-center hidden
-            } flex flex-col justify-center items-center gap-4  shadow-lg bg-white dark:bg-[#120505] px-8 py-4 top-16 dark:text-white z-50`}
-          >
-            <p className="text-lg font-semibold">{}</p>
+          {user && (
+            <div
+              className={`absolute text-center ${openUser ? "" : "hidden"} 
+              } flex flex-col justify-center items-center gap-4  shadow-lg bg-white dark:bg-white px-8 py-4 min-w-[250px] top-16 dark:text-black z-50`}
+            >
+              <p className="text-lg font-semibold">{user?.displayName}</p>
 
-            <button className="bg-[#4CCE5B] hover:bg-[#ab3154] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded cursor-pointer">
-              logout
-            </button>
-          </div>
+              <button
+                onClick={handleLogOut}
+                className="bg-[#4CCE5B] hover:bg-[#636263] duration-200 text-white font-bold px-4 xl:px-6 py-1 rounded cursor-pointer"
+              >
+                logout
+              </button>
+            </div>
+          )}
         </div>
+
         {/* Drawer */}
         <button className="text-4xl text-[#4CCE5B] flex items-center md:hidden ml-3">
           <i className={``}>X</i>
