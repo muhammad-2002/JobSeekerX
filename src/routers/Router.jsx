@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import AllJobs from "../Components/All Jobs/AllJobs";
+import AppliedJobs from "../Components/AppliedJobs/AppliedJobs";
 import JobDetail from "../Components/JobDetails/JobDetails";
+import MyJobs from "../Components/My Jobs/MyJobs";
 import MainLayout from "../MainLayout/MainLayout";
 import AddaJobs from "../pages/AddJob/AddJob";
 import ApplyJobs from "../pages/ApplyJobs/ApplyJobs";
@@ -56,6 +58,15 @@ const router = createBrowserRouter([
       {
         path: "/jobs/apply-job/:id",
         element: <ApplyJobs></ApplyJobs>,
+      },
+      {
+        path: "/applied-job",
+        element: <AppliedJobs></AppliedJobs>,
+        loader: () => fetch(`${import.meta.env.VITE_API}/applied-job`),
+      },
+      {
+        path: "/jobs/my-jobs/:email",
+        element: <MyJobs></MyJobs>,
       },
     ],
   },

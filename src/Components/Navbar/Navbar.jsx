@@ -79,6 +79,20 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
+                to="/applied-job"
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                    : "hover:text-[#4CCE5B]"
+                }
+              >
+                <span>Applied job</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to="/blog"
                 className={({ isActive, isPending }) =>
                   isPending
@@ -89,6 +103,20 @@ const Navbar = () => {
                 }
               >
                 <span>Blog</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={`/jobs/my-jobs/${user?.email}`}
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                    : "hover:text-[#4CCE5B]"
+                }
+              >
+                <span>My Jobs</span>
               </NavLink>
             </li>
           </ul>

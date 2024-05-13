@@ -38,7 +38,7 @@ const JobDetail = () => {
     const resume = form.cv.value;
     const currentDate = new Date().toDateString();
 
-    const formAppliedData = { name, email, resume, currentDate };
+    const formAppliedData = { name, email, category, resume, currentDate };
 
     const { data } = await axios.post(
       `${import.meta.env.VITE_API}/apply-job`,
@@ -65,12 +65,6 @@ const JobDetail = () => {
   const handleModal = () => {
     if (userEmail === user.email) {
       return toast.warn("You don't apply This Job..", {
-        position: "top-right",
-        theme: "dark",
-      });
-    }
-    if (mlliSecond < Date.now()) {
-      return toast.warn("Sorry Application Date Over..", {
         position: "top-right",
         theme: "dark",
       });

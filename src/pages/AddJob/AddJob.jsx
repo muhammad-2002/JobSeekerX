@@ -1,15 +1,19 @@
 import axios from "axios";
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 import job from "../../assets/Duplicate-amico.png";
 
 const AddaJobs = () => {
+  const [startDate, setStartDate] = useState(new Date());
   const { user } = useAuth();
   const handleJobsData = async (e) => {
     e.preventDefault();
     const form = e.target;
     const userEmail = user.email;
-    const applicants_number = form.applicant.value;
+    const applicants_number = parseInt(form.applicant.value || 0);
     const job_title = form.title.value;
     const job_des = form.dsc.value;
     const company_logo = form.photo.value;
@@ -17,7 +21,7 @@ const AddaJobs = () => {
     const posted_by = form.name.value;
     const salary_range = form.salary.value;
     const category = form.category.value;
-    const application_deadline = form.deadline.value;
+    const application_deadline = startDate;
     const posting_date = new Date().toDateString();
 
     const formData = {
@@ -76,13 +80,37 @@ const AddaJobs = () => {
           <form onSubmit={handleJobsData} className="space-y-2">
             {/* part1 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {/* job applicent  no  */}
+              {/* email  */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">User Email</span>
+                </label>
+                <input
+                  value={user?.email}
+                  className="py-2 p-2 rounded bg-gray-200 design outline-none"
+                  required
+                />
+              </div>
+              {/* user Name */}
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">User Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={user?.displayName}
+                  placeholder="Applicant No"
+                  className="py-2 p-2 bg-gray-200 rounded design outline-none"
+                  required
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Job Applicant No</span>
                 </label>
                 <input
                   name="applicant"
+                  defaultValue={0}
                   type="number"
                   placeholder="Applicant No"
                   className="py-2 p-2 rounded design outline-none"
@@ -128,9 +156,8 @@ const AddaJobs = () => {
                 <input
                   type="number"
                   name="salary"
-                  min="2000"
+                  min="20000"
                   max="100000"
-                  step="1000"
                   placeholder="salary"
                   className="py-2 p-2 rounded design outline-none"
                   required
@@ -145,7 +172,7 @@ const AddaJobs = () => {
               {/* photo */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Copmany logo</span>
+                  <span className="label-text">Company logo</span>
                 </label>
                 <input
                   type="text"
@@ -171,13 +198,12 @@ const AddaJobs = () => {
               {/* application date  */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Application Deadline</span>
+                  <span className="label-text ">Application Deadline</span>
                 </label>
-                <input
-                  name="deadline"
-                  type="date"
-                  className="py-2 p-2 rounded design outline-none"
-                  required
+                <DatePicker
+                  className=" py-2 p-2 rounded design outline-none"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
                 />
               </div>
             </div>
