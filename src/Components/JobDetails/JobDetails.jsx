@@ -1,10 +1,16 @@
-import { Link, useLoaderData } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 
 // import logo from "../assets/e3.png"
 
 const JobDetail = () => {
-  const dynamicTitle = "Job Details";
+  const { user } = useAuth();
   const data = useLoaderData();
+  const [showModal, setShowModal] = useState(false);
   console.log(data);
   const {
     _id,
@@ -18,7 +24,59 @@ const JobDetail = () => {
     company_logo,
     banner_img,
     job_des,
+    userEmail,
   } = data || {};
+
+  const mlliSecond = new Date(application_deadline).getTime();
+
+  const handelApplyJobs = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = user.displayName;
+    const email = user.email;
+    const resume = form.cv.value;
+    const currentDate = new Date().toDateString();
+
+    const formAppliedData = { name, email, resume, currentDate };
+
+    const { data } = await axios.post(
+      `${import.meta.env.VITE_API}/apply-job`,
+      formAppliedData
+    );
+    try {
+      if (data.insertedId) {
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Wow! Applied successfully .",
+        });
+      }
+    } catch {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while adding the jobs.",
+      });
+    }
+
+    setShowModal(false);
+  };
+  const handleModal = () => {
+    if (userEmail === user.email) {
+      return toast.warn("You don't apply This Job..", {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+    if (mlliSecond < Date.now()) {
+      return toast.warn("Sorry Application Date Over..", {
+        position: "top-right",
+        theme: "dark",
+      });
+    }
+    setShowModal(!showModal);
+  };
 
   return (
     <div className="w-full mx-auto ">
@@ -47,12 +105,12 @@ const JobDetail = () => {
               </div>
             </div>
             <div className="text-end space-y-2">
-              <Link
-                to={`/v1/applied/${_id}`}
+              <button
+                onClick={handleModal}
                 className="bg-[#4CCE5B] py-2 px-14 rounded font-semibold text-white"
               >
                 Apply Now
-              </Link>
+              </button>
               <h1 className="text-black font-bold">
                 {" "}
                 <span className="text-red-400 py-1 px-3 rounded-md">
@@ -103,6 +161,44 @@ const JobDetail = () => {
           </h1>
         </div>
       </div>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center mt-8 justify-center">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="bg-white rounded-lg p-8 z-10 relative">
+            <h2 className="text-xl font-semibold mb-4">
+              Apply for {job_title}
+            </h2>
+            <form onSubmit={handelApplyJobs}>
+              <div className="relative bg-white bg-opacity-50 rounded-lg p-4 mb-4">
+                {/* Dark background below the form tag */}
+                <input
+                  type="text"
+                  value={user.displayName}
+                  placeholder="Your Name"
+                  className="w-full border rounded-lg px-4 py-2"
+                />
+                <input
+                  type="email"
+                  value={user.email}
+                  placeholder="Your Email"
+                  className="w-full border rounded-lg px-4 py-2 mt-2"
+                />
+                <input
+                  type="text"
+                  name="cv"
+                  placeholder="Your resume link"
+                  className="w-full border rounded-lg px-4 mt-2 py-2"
+                />
+              </div>
+              <input
+                type="submit"
+                className="px-6 py-2 rounded-md bg-[#4CCE5B] text-white font-bold"
+                value="Submit"
+              ></input>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -36,6 +36,7 @@ const Register = () => {
     } catch (err) {
       console.log(err, "Error message");
     }
+    data.reset();
   };
   return (
     <div className=" mb-14">

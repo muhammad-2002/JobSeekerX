@@ -12,11 +12,9 @@ const JobTable = ({ job }) => {
     job_title,
     company_logo,
   } = job || {};
-  // console.log(job);
 
   return (
     <tbody>
-      {/* row 1 */}
       <tr>
         <td>
           <div className="avatar">

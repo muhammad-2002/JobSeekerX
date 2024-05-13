@@ -1,11 +1,14 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
 import job from "../../assets/Duplicate-amico.png";
 
 const AddaJobs = () => {
+  const { user } = useAuth();
   const handleJobsData = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const userEmail = user.email;
     const applicants_number = form.applicant.value;
     const job_title = form.title.value;
     const job_des = form.dsc.value;
@@ -19,6 +22,7 @@ const AddaJobs = () => {
 
     const formData = {
       applicants_number,
+      userEmail,
       job_title,
       job_des,
       company_logo,

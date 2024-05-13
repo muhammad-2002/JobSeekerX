@@ -4,6 +4,7 @@ import AllJobs from "../Components/All Jobs/AllJobs";
 import JobDetail from "../Components/JobDetails/JobDetails";
 import MainLayout from "../MainLayout/MainLayout";
 import AddaJobs from "../pages/AddJob/AddJob";
+import ApplyJobs from "../pages/ApplyJobs/ApplyJobs";
 import Blog from "../pages/Blog/Blog";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/Home/Home";
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
         path: "/all-jobs",
         loader: () => fetch(`${import.meta.env.VITE_API}/jobs`),
         element: <AllJobs></AllJobs>,
+      },
+      {
+        path: "/jobs/apply-job/:id",
+        element: <ApplyJobs></ApplyJobs>,
       },
     ],
   },
