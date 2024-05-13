@@ -2,22 +2,28 @@ import { useState } from "react";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { IoMdLogIn } from "react-icons/io";
 import { Link, NavLink } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 const Navbar = () => {
   const { user, logOutUser } = useAuth();
   const [openUser, setOpen] = useState(false);
   const handleLogOut = async () => {
     setOpen(false);
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "You are Successfully Log Out",
+      showConfirmButton: false,
+      timer: 2000,
+    });
     logOutUser();
   };
   return (
-    <div className="max-w-[1920px] w-full mx-auto fixed rale-way">
+    <div className="max-w-[1920px] w-full mx-auto fixed rale-way z-50">
       <header className="bg-white shadow-lg  flex w-full  px-5 md:px-[50px] lg:px-[80px] xl:px-[120px] 2xl:px-[150px] md:py-6 py-3 ">
         {/* start */}
-        <Link
-          to="/"
-          className="md:border-r flex flex-shrink-0 items-center  gap-4"
-        >
+        <Link to="/" className=" flex flex-shrink-0 items-center  gap-4">
           <p className="text-3xl text-[#4CCE5B]">
             <FaPeopleGroup />
           </p>
@@ -45,21 +51,21 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink
-                to="/add-coffee"
+                to="/all-jobs"
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
                     : isActive
-                    ? "text-[]#4CCE5B border-b-4 border-[#291410]"
-                    : "hover:text-[]#4CCE5B"
+                    ? "text-[#4CCE5B] text-bold border-b-4 border-[#4CCE5B]"
+                    : "hover:text-[#4CCE5B]"
                 }
               >
-                <span>Add Product</span>
+                <span>All Jobs</span>
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/My Cart"
+                to="/add-job"
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -68,14 +74,28 @@ const Navbar = () => {
                     : "hover:text-[#4CCE5B]"
                 }
               >
-                <span>My Cart</span>
+                <span>Add Job</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/blog"
+                className={({ isActive, isPending }) =>
+                  isPending
+                    ? "pending"
+                    : isActive
+                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                    : "hover:text-[#4CCE5B]"
+                }
+              >
+                <span>Blog</span>
               </NavLink>
             </li>
           </ul>
         </nav>
         {/* end */}
 
-        <div className="relative md:border-l flex items-center gap-3  justify-end w-full md:w-auto pl-5 ">
+        <div className="relative  flex items-center gap-3  justify-end w-full md:w-auto pl-5 ">
           <div className=" w-[50px]">
             <button className=" p-1 mr-3 flex items-center">
               <img className="md:w-full   w-10 object-cover" src={""} alt="" />
@@ -179,7 +199,7 @@ const Navbar = () => {
             <li>
               <NavLink
                 onClick={() => setSideOpen(!sideOpen)}
-                to="/myCart"
+                to="/blog"
                 className={({ isActive, isPending }) =>
                   isPending
                     ? "pending"
@@ -188,7 +208,7 @@ const Navbar = () => {
                     : "hover:text-[#4CCE5B]"
                 }
               >
-                <span>My Cart</span>
+                <span>Blo</span>
               </NavLink>
             </li>
           </ul>

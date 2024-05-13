@@ -50,6 +50,12 @@ const Login = () => {
           showConfirmButton: false,
           timer: 2000,
         });
+
+        // Swal.fire({
+        //   title: "You are Not Log in",
+        //   text: " please press ok and go to login page..",
+        //   icon: "error",
+        // });
       })
       .catch((err) => {
         Swal.fire({

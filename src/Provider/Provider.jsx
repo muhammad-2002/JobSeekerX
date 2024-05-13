@@ -58,6 +58,7 @@ const Provider = ({ children }) => {
   //SignOut User
   const logOutUser = () => {
     setLoading(true);
+
     return signOut(auth);
   };
   useEffect(() => {

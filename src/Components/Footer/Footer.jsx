@@ -1,17 +1,16 @@
 import { BsFacebook, BsPinterest, BsTwitter } from "react-icons/bs";
-import { FaPhoneVolume } from "react-icons/fa6";
+import { FaPeopleGroup } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <div className=" bg-[#4CCE5B]  text-white pt-5">
       <footer className="footer px-2 py-4 max-w-7xl m-auto font-normal  flex justify-between md:flex-row flex-col items-start gap-5 text-base-content">
         <nav className="font-medium text-gray-600 space-y-4">
-          <div className="flex gap-2 text-white items-center">
-            <FaPhoneVolume className="text-2xl" />
+          <div className="flex gap-2 text-white text-3xl font-bold items-center">
+            <FaPeopleGroup className="text-2xl"></FaPeopleGroup>
             <div>
               <h1>
-                Need help? 24/7 <br />
-                001-1234-8888
+                JobSeeker<span className="">X</span>
               </h1>
             </div>
           </div>
