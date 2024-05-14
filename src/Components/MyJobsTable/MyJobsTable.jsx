@@ -1,6 +1,6 @@
+import { MdOutlineDelete, MdSystemUpdateAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
-
-const JobTable = ({ job }) => {
+const MyJobsTable = ({ job }) => {
   const {
     _id,
     salary_range,
@@ -12,6 +12,7 @@ const JobTable = ({ job }) => {
     job_title,
     company_logo,
   } = job || {};
+  const handleDelete = (id) => {};
 
   return (
     <tbody>
@@ -28,12 +29,18 @@ const JobTable = ({ job }) => {
         <td>{posting_date}</td>
         <td>{application_deadline}</td>
         <td>$1000-{salary_range}</td>
-        <td className="text-center">
+        <td className="text-center flex gap-3">
           <Link
             to={`/jobs/${_id}`}
-            className="py-1 px-4 rounded-lg transition-all hover:bg-white hover:text-black bg-[#4CCE5B] text-white"
+            className="py-1 flex justify-center items-center text-2xl  px-2 rounded-sm transition-all hover:bg-white hover:text-black bg-[#4CCE5B] text-white"
           >
-            Details
+            <MdSystemUpdateAlt></MdSystemUpdateAlt>
+          </Link>
+          <Link
+            onClick={() => handleDelete(_id)}
+            className="py-1 px-2 rounded-sm text-2xl flex justify-center items-center transition-all hover:bg-white hover:text-black bg-[#fc0000] text-white"
+          >
+            <MdOutlineDelete></MdOutlineDelete>
           </Link>
         </td>
       </tr>
@@ -41,4 +48,4 @@ const JobTable = ({ job }) => {
   );
 };
 
-export default JobTable;
+export default MyJobsTable;
