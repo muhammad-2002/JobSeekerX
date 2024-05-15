@@ -38,8 +38,7 @@ const MyJobs = () => {
   });
   const getData = async () => {
     const { data } = await axiosSecure.get(`/my-jobs/${user?.email}`);
-    console.log(data);
-    console.log(isLoading);
+
     return data;
   };
 

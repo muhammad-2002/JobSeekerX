@@ -59,10 +59,8 @@ const Provider = ({ children }) => {
   //SignOut User
   const logOutUser = async () => {
     setLoading(true);
-    const { data } = await axios(`${import.meta.env.VITE_API}/logout`, {
-      withCredentials: true,
-    });
-    console.log(data);
+    const { data } = await axios(`${import.meta.env.VITE_API}/logout`);
+
     return signOut(auth);
   };
   useEffect(() => {
@@ -73,13 +71,9 @@ const Provider = ({ children }) => {
         setLoading(false);
         const userEmail = user?.email;
         if (user) {
-          const { data } = await axios.post(
-            `${import.meta.env.VITE_API}/jwt`,
-            {
-              userEmail,
-            },
-            { withCredentials: true }
-          );
+          const { data } = await axios.post(`${import.meta.env.VITE_API}/jwt`, {
+            userEmail,
+          });
           console.log(data);
         } else {
           setUser(null);
