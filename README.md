@@ -14,7 +14,7 @@ Server side github link: https://github.com/Porgramming-Hero-web-course/b9a11-se
             5.NodeJS and <br>
             6.ExpressJs etc <br> 
    <h3 align="center">---Unique feature ---</h3>  
-             i.	Your end-to-end hiring platform section in the website home page . <br>
+             i.	Trusted & Popular Job Portal. <br>
             ii.	What our client are saying section in the website home page . <br>
            iii.	A Fantastic block page. <br>
 <br>
