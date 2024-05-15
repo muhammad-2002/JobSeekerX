@@ -27,7 +27,7 @@ Server side github link: https://github.com/Porgramming-Hero-web-course/b9a11-se
             <p>Creating a compelling "Future Jobs" section on a website can provide valuable insights into emerging career opportunities and trends. Here are some content ideas for such a section:Career Profiles: Provide in-depth profiles of individuals who hold jobs that are likely to be in high demand in the future. Include their background, education, daily responsibilities, and insights into the industry.Industry Insights: Write articles or reports about industries that are expected to grow significantly. Explain why these industries are on the rise and what types of jobs they will create.</p>
                <hr/> 
             <h3><span>2/Features:</span>Our website client feedback section </h3>
-            <img src="[https://i.ibb.co/Yfjsp5L/Screenshot-2023-11-08-212537.png](https://i.ibb.co/fvxY1bf/Screenshot-2024-05-15-203034.png)" alt="" />
+            <img src="https://i.ibb.co/fvxY1bf/Screenshot-2024-05-15-203034.png" alt="" />
             <p>
             A client feedback section on your website is a valuable tool for building trust, showcasing your credibility, and improving your services based on customer input. Here are some content ideas for an effective client feedback section:
             Testimonials: Share written or video testimonials from satisfied clients. Include their names, photos, and specific details about how your product or service helped them.</p>
