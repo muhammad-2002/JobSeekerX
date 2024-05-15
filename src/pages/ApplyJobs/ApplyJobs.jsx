@@ -52,7 +52,7 @@ const ApplyJobs = () => {
         <form onSubmit={handelApplyJobs} className="">
           {/* part1 */}
           {/* job applicent  no  */}
-          <h1 className="text-xl bg-[#0DBC95] text-white p-4 text-center font-semibold">
+          <h1 className="text-xl bg-[#4CCE5B] text-white p-4 text-center font-semibold">
             Applied Jobs
           </h1>
           <div className="form-control p-4">
@@ -98,7 +98,7 @@ const ApplyJobs = () => {
             />
           </div>
           <div className="form-control  p-4">
-            <button className="bg-[#0DBC95] py-2 outline-none rounded text-white uppercase">
+            <button className="bg-[#4CCE5B] py-2 outline-none rounded text-white uppercase">
               Submit Application
             </button>
           </div>

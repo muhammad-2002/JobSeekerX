@@ -4,7 +4,7 @@ import blog4 from "../../assets/Screenshot 2023-11-06 130424.png";
 
 const Blog = () => {
   return (
-    <div className="max-w-screen-2xl mx-auto relative mb-10">
+    <div className="max-w-screen-2xl mx-auto relative -mt-10 md:mt-0 mb-10">
       {/* Use Helmet to set the title */}
       <div className="z-0 ">
         <img
@@ -210,7 +210,7 @@ const Blog = () => {
             <hr />
 
             <div className=" md:flex justify-between">
-              <div className="md:flex  gap-3">
+              <div className="md:flex  gap-3 space-y-4">
                 <h1 className="font-bold">Tag :</h1>
                 <h1 className="bg-green-100 px-2 py-1 rounded-full">Busness</h1>
                 <h1 className="bg-green-100 px-2 py-1 rounded-full">Success</h1>
@@ -219,7 +219,7 @@ const Blog = () => {
                 </h1>
               </div>
 
-              <div className="md:flex gap-4 justify-center items-center ">
+              <div className="flex gap-4 justify-center items-center ">
                 <h1 className="font-bold">Share this post :</h1>
                 <BsFacebook></BsFacebook>
                 <BsPinterest></BsPinterest>

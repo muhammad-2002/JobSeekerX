@@ -19,7 +19,7 @@ const Footer = () => {
             and <br /> earn money in the process! 118 E 128th St, <br /> East
             Chicago, IN 46312, US
           </p>
-          <div className="md:flex text-white gap-4 justify-center items-center ">
+          <div className="md:flex text-white gap-4 justify-center flex-row items-center ">
             <BsFacebook className="text-2xl"></BsFacebook>
             <BsPinterest className="text-2xl"></BsPinterest>
             <BsTwitter className="text-2xl"></BsTwitter>
