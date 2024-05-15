@@ -7,7 +7,6 @@ const AllJobs = () => {
   const [search, setSearch] = useState("");
   // console.log(search);
   const data = useLoaderData();
-  console.log(data);
 
   return (
     <div className="w-full mx-auto md:px-2 ">

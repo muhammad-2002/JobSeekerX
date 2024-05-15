@@ -12,6 +12,7 @@ const MyJobs = () => {
   const [search, setSearch] = useState("");
   const { user } = useAuth();
   const queryClient = useQueryClient();
+
   const {
     data: data = [],
     isLoading,
@@ -22,12 +23,13 @@ const MyJobs = () => {
     queryFn: () => getData(),
     queryKey: ["my-jobs", user?.email],
   });
-
+  console.log(data);
   const { mutateAsync } = useMutation({
     mutationFn: async (id) => {
       const { data } = await axios.delete(
         `${import.meta.env.VITE_API}/jobs/${id}`
       );
+      console.log(isLoading);
 
       console.log(data);
     },
@@ -37,7 +39,9 @@ const MyJobs = () => {
     },
   });
   const getData = async () => {
-    const { data } = await axiosSecure.get(`/my-jobs/${user?.email}`);
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API}/my-jobs/${user?.email}`
+    );
 
     return data;
   };
@@ -64,20 +68,18 @@ const MyJobs = () => {
     }
   };
 
-  if (error) {
-    console.log(error);
-  }
-
   if (isLoading)
     return (
       <div className=" flex justify-center items-center h-screen w-full bg-[#4CCE5B]">
         <div className="flex items-center justify-center space-x-2">
           <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
           <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
+
           <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
         </div>
       </div>
     );
+
   return (
     <div className="min-h-[calc(100vh-437px)]">
       <div className="w-full mx-auto md:px-2 ">

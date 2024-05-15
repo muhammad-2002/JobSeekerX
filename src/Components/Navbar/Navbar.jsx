@@ -11,7 +11,7 @@ const Navbar = () => {
   const [userOpen, setUserOpen] = useState(false);
   const navigate = useNavigate();
   const { user, logOutUser } = useAuth();
-  const [openUser, setOpen] = useState(false);
+  // const [openUser, setOpen] = useState(false);
 
   const savedTheme = localStorage.getItem("theme") || "light";
   const [theme, setTheme] = useState(savedTheme);
@@ -27,7 +27,7 @@ const Navbar = () => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
   const handleLogOut = async () => {
-    setOpen(false);
+    setUserOpen(false);
 
     Swal.fire({
       position: "center",
@@ -82,34 +82,38 @@ const Navbar = () => {
                 <span>All Jobs</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/add-job"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B]"
-                }
-              >
-                <span>Add Job</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/applied-job"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B]"
-                }
-              >
-                <span>Applied job</span>
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to="/add-job"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B]"
+                  }
+                >
+                  <span>Add Job</span>
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li>
+                <NavLink
+                  to="/applied-job"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B]"
+                  }
+                >
+                  <span>Applied job</span>
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 to="/blog"
@@ -124,20 +128,22 @@ const Navbar = () => {
                 <span>Blog</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={`/jobs/my-jobs/${user?.email}`}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B]"
-                }
-              >
-                <span>My Jobs</span>
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to={`/jobs/my-jobs/${user?.email}`}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B]"
+                  }
+                >
+                  <span>My Jobs</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </nav>
         {/* End */}
@@ -186,7 +192,7 @@ const Navbar = () => {
             {user ? (
               <button
                 onMouseEnter={() => setUserOpen(!userOpen)}
-                className="border-2 border-[#4CCE5B] rounded-full w-[40px]"
+                className="border-2 border-[#4CCE5B]  rounded-full w-[40px]"
               >
                 <img
                   src={user?.photoURL}
@@ -231,7 +237,7 @@ const Navbar = () => {
           <div
             className={`absolute ${
               userOpen ? " " : "hidden"
-            } text-center   flex flex-col justify-center hidden items-center gap-4  shadow-lg bg-white dark:bg-[#123841] px-6 min-w-[200px] py-4 -top-80 md:top-14 -left-34 dark:text-white z-50`}
+            } text-center   flex flex-col justify-center  items-center gap-4  shadow-lg bg-white dark:bg-[#123841] px-6 min-w-[200px] py-4 -top-80 md:top-16 -left-34 dark:text-white z-50`}
           >
             <p className="text-lg font-semibold">{user?.displayName}</p>
 
@@ -288,34 +294,38 @@ const Navbar = () => {
                 <span>All Jobs</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/add-job"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B] text-black"
-                }
-              >
-                <span>Add Job</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/applied-job"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B] text-black"
-                }
-              >
-                <span>Applied job</span>
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to="/add-job"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B] text-black"
+                  }
+                >
+                  <span>Add Job</span>
+                </NavLink>
+              </li>
+            )}
+            {user && (
+              <li>
+                <NavLink
+                  to="/applied-job"
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B] text-black"
+                  }
+                >
+                  <span>Applied job</span>
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 to="/blog"
@@ -330,20 +340,22 @@ const Navbar = () => {
                 <span>Blog</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={`/jobs/my-jobs/${user?.email}`}
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? "pending"
-                    : isActive
-                    ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                    : "hover:text-[#4CCE5B] text-black"
-                }
-              >
-                <span>My Jobs</span>
-              </NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink
+                  to={`/jobs/my-jobs/${user?.email}`}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B] text-black"
+                  }
+                >
+                  <span>My Jobs</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
 

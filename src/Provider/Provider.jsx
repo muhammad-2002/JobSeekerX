@@ -67,14 +67,14 @@ const Provider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(
       auth,
       async (user) => {
-        setUser(user);
-        setLoading(false);
-        const userEmail = user?.email;
         if (user) {
-          const { data } = await axios.post(`${import.meta.env.VITE_API}/jwt`, {
-            userEmail,
-          });
-          console.log(data);
+          setUser(user);
+          setLoading(false);
+          const userEmail = user?.email;
+          // const { data } = await axios.post(`${import.meta.env.VITE_API}/jwt`, {
+          //   userEmail,
+          // });
+          // console.log(data);
         } else {
           setUser(null);
           setLoading(false);

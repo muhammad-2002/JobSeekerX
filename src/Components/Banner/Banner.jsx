@@ -3,7 +3,7 @@ import banner1 from "../../assets/slider4.png";
 
 const Banner = () => {
   return (
-    <div className="bg-[#D0FED5] -mt-10 h-4/5 py-8">
+    <div className="bg-[#D0FED5] -mt-10 md:mt-0 h-4/5 py-8">
       <div className="max-w-7xl mx-auto px-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-between items-center">
           <div className="space-y-5">

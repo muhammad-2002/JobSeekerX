@@ -25,7 +25,7 @@ const AddaJobs = () => {
     const posting_date = new Date().toDateString();
 
     const formData = {
-      applicants_number,
+      applicants_number: parseInt(applicants_number),
       userEmail,
       job_title,
       job_des,

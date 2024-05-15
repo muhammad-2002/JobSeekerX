@@ -1,6 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
@@ -9,9 +10,20 @@ import useAuth from "../../Hook/useAuth";
 
 const JobDetail = () => {
   const { user } = useAuth();
-  const data = useLoaderData();
+  const par = useParams();
+  const getData = async () => {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_API}/jobs/${par.id}`
+    );
+
+    return data;
+  };
   const [showModal, setShowModal] = useState(false);
-  console.log(data);
+  const { data: data = [], refetch } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["job-details"],
+  });
+
   const {
     _id,
     salary_range,
@@ -51,6 +63,21 @@ const JobDetail = () => {
           title: "Success",
           text: "Wow! Applied successfully .",
         });
+        setShowModal(false);
+
+        await axios
+          .patch(`${import.meta.env.VITE_API}/apply-job`, {
+            _id,
+            applicants_number,
+          })
+          .then((response) => {
+            console.log(response.data.modifiedCount);
+            if (response.data.modifiedCount > 0) {
+              refetch();
+            }
+          });
+
+        //UI Reload
       }
     } catch {
       Swal.fire({
@@ -127,7 +154,10 @@ const JobDetail = () => {
           <h1 className="text-2xl font-semibold mt-5">Job Information</h1>
           <hr />
           <h1 className="text-md font-medium text-gray-500">
-            Applicant No: 0000{applicants_number}{" "}
+            Applicant No:
+            <span className="bg-yellow-500 font-bold p-1 rounded-full text-black">
+              {applicants_number}
+            </span>{" "}
           </h1>
           <hr />
           <h1 className="text-md font-medium text-gray-500">
