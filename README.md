@@ -20,7 +20,7 @@ Server side github link: https://github.com/Porgramming-Hero-web-course/b9a11-se
 <br>
            
    <h3 align="center">---Project features ---</h3> 
-            <img src="https://ibb.co/Q98nfVp" alt="" />
+            <img src="" alt="" />https://i.ibb.co/8Mz20wN/Screenshot-2024-05-15-202930.png
             <h1>Add at least 5 Project features in my job portal website</h1>
             <h3>1/Feature: Website future job section </h3>
             <img src="https://i.ibb.co/SvwVR23/Screenshot-2023-11-08-212019.png" alt="" />
