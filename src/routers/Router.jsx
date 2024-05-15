@@ -4,6 +4,7 @@ import AllJobs from "../Components/All Jobs/AllJobs";
 import AppliedJobs from "../Components/AppliedJobs/AppliedJobs";
 import JobDetail from "../Components/JobDetails/JobDetails";
 import MyJobs from "../Components/My Jobs/MyJobs";
+import UpdateJob from "../Components/UpdateJob/UpdateJob";
 import MainLayout from "../MainLayout/MainLayout";
 import AddaJobs from "../pages/AddJob/AddJob";
 import ApplyJobs from "../pages/ApplyJobs/ApplyJobs";
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: "/jobs/my-jobs/:email",
         element: <MyJobs></MyJobs>,
+      },
+      {
+        path: "/update/:id",
+        element: <UpdateJob></UpdateJob>,
       },
     ],
   },

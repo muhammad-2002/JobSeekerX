@@ -1,12 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../Hook/useAuth";
 import job from "../../assets/Duplicate-amico.png";
-
-const AddaJobs = () => {
+const UpdateJob = () => {
+  const params = useParams();
   const [startDate, setStartDate] = useState(new Date());
   const { user } = useAuth();
   const handleJobsData = async (e) => {
@@ -21,7 +22,7 @@ const AddaJobs = () => {
     const posted_by = form.name.value;
     const salary_range = form.salary.value;
     const category = form.category.value;
-    const application_deadline = startDate.toDateString();
+    const application_deadline = startDate;
     const posting_date = new Date().toDateString();
 
     const formData = {
@@ -39,8 +40,8 @@ const AddaJobs = () => {
     };
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/jobs`,
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_API}/update/${params.id}`,
         formData
       );
       console.log(data);
@@ -49,7 +50,7 @@ const AddaJobs = () => {
       Swal.fire({
         icon: "success",
         title: "Success",
-        text: "Wow! Jobs successfully added.",
+        text: "Wow! Jobs successfully updated.",
       });
 
       // If submission was successful, reset the form or perform any other necessary actions
@@ -59,11 +60,10 @@ const AddaJobs = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Failed to add the job.",
+        text: "Failed to Update the job.",
       });
     }
   };
-
   return (
     <div className="max-w-7xl mt-7 mx-auto px-3">
       {/* dynamic title  */}
@@ -72,7 +72,7 @@ const AddaJobs = () => {
       </Helmet> */}
       {/* <div className="bg h-[300px]"></div> */}
       <h1 className="text-4xl text-center text-[#4CCE5B] mb-10 font-bold mt-4">
-        Add A New Job
+        Update Job
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-center items-center">
         <img className="w-[80%]" src={job} alt="" />
@@ -238,7 +238,7 @@ const AddaJobs = () => {
             {/* submitt  */}
             <div className="form-control mt-6">
               <button className="bg-[#4CCE5B] py-2 px-4 outline-none rounded text-white">
-                Add Job
+                Update Job
               </button>
             </div>
           </form>
@@ -248,4 +248,4 @@ const AddaJobs = () => {
   );
 };
 
-export default AddaJobs;
+export default UpdateJob;

@@ -1,21 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Heading from "../Heading/Heading";
 import JobCard from "../JobCard/JobCard";
 
 const TabCatagory = () => {
-  const [jobs, setJobs] = useState([]);
-  console.log(jobs);
-  useEffect(() => {
-    const geData = async () => {
-      const { data } = await axios.get(`${import.meta.env.VITE_API}/jobs`);
-      setJobs(data);
-      console.log(data);
-    };
-    geData();
-  }, []);
+  const {
+    data: jobs = [],
+    isLoading,
+    refetch,
+    isError,
+    error,
+  } = useQuery({
+    queryFn: () => geData(),
+    queryKey: ["jobs"],
+  });
+  const geData = async () => {
+    const { data } = await axios.get(`${import.meta.env.VITE_API}/jobs`);
+    return data;
+  };
+
+  if (isLoading) return <p>loading</p>;
   return (
     <div className="">
       <div>

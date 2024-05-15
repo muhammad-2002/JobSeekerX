@@ -1,6 +1,6 @@
 import { MdOutlineDelete, MdSystemUpdateAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
-const MyJobsTable = ({ job }) => {
+const MyJobsTable = ({ job, handleDelete }) => {
   const {
     _id,
     salary_range,
@@ -12,7 +12,6 @@ const MyJobsTable = ({ job }) => {
     job_title,
     company_logo,
   } = job || {};
-  const handleDelete = (id) => {};
 
   return (
     <tbody>
@@ -31,7 +30,7 @@ const MyJobsTable = ({ job }) => {
         <td>$1000-{salary_range}</td>
         <td className="text-center flex gap-3">
           <Link
-            to={`/jobs/${_id}`}
+            to={`/update/${_id}`}
             className="py-1 flex justify-center items-center text-2xl  px-2 rounded-sm transition-all hover:bg-white hover:text-black bg-[#4CCE5B] text-white"
           >
             <MdSystemUpdateAlt></MdSystemUpdateAlt>

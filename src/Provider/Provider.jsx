@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -56,18 +57,30 @@ const Provider = ({ children }) => {
   };
 
   //SignOut User
-  const logOutUser = () => {
+  const logOutUser = async () => {
     setLoading(true);
-
+    const { data } = await axios(`${import.meta.env.VITE_API}/logout`, {
+      withCredentials: true,
+    });
+    console.log(data);
     return signOut(auth);
   };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       auth,
-      (user) => {
+      async (user) => {
+        setUser(user);
+        setLoading(false);
+        const userEmail = user?.email;
         if (user) {
-          setUser(user);
-          setLoading(false);
+          const { data } = await axios.post(
+            `${import.meta.env.VITE_API}/jwt`,
+            {
+              userEmail,
+            },
+            { withCredentials: true }
+          );
+          console.log(data);
         } else {
           setUser(null);
           setLoading(false);

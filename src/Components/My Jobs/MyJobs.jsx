@@ -1,26 +1,84 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import Swal from "sweetalert2";
 import MyJobsTable from "../MyJobsTable/MyJobsTable";
+import UseAxiosSecure from "../hook/UseAxiosSecure";
 import useAuth from "./../../Hook/useAuth";
 
 const MyJobs = () => {
-  const { user } = useAuth();
-
-  const [data, setData] = useState([]);
-  console.log(data);
+  const axiosSecure = UseAxiosSecure();
   const [search, setSearch] = useState("");
+  const { user } = useAuth();
+  const queryClient = useQueryClient();
+  const {
+    data: data = [],
+    isLoading,
+    refetch,
+    isError,
+    error,
+  } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["my-jobs", user?.email],
+  });
 
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_API}/my-jobs/${user?.email}`
+  const { mutateAsync } = useMutation({
+    mutationFn: async (id) => {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_API}/jobs/${id}`
       );
 
-      setData(data);
-    };
-    getData();
-  }, []);
+      console.log(data);
+    },
+    onSuccess: () => {
+      // refetch();
+      queryClient.invalidateQueries({ queryKey: ["my-jobs"] });
+    },
+  });
+  const getData = async () => {
+    const { data } = await axios.get(`/my-jobs/${user?.email}`);
+    console.log(data);
+    console.log(isLoading);
+    return data;
+  };
+
+  const handleDelete = async (id) => {
+    // Show confirmation dialog
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You will not be able to recover this data!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    // If user confirms deletion
+    if (result.isConfirmed) {
+      // Proceed with deletion
+      await mutateAsync(id);
+
+      // Show success message
+      Swal.fire("Deleted!", "Your data has been deleted.", "success");
+    }
+  };
+
+  if (error) {
+    console.log(error);
+  }
+
+  if (isLoading)
+    return (
+      <div className=" flex justify-center items-center h-screen w-full bg-[#4CCE5B]">
+        <div className="flex items-center justify-center space-x-2">
+          <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
+          <div className="w-4 h-4 rounded-full animate-pulse dark:bg-white"></div>
+        </div>
+      </div>
+    );
   return (
     <div className="min-h-[calc(100vh-437px)]">
       <div className="w-full mx-auto md:px-2 ">
@@ -28,7 +86,7 @@ const MyJobs = () => {
 
         <div className="md:flex md:justify-between  md:items-center justify-center items-center mt-10 mb-2">
           <h1 className="text-2xl  font-bold ">
-            My Posted jobs: {data.length}
+            My Posted jobs: {data?.length}
           </h1>
           <div className="flex items-center justify-center py-2">
             <button className=" rounded-l-md px-4 py-1 br outline-none bg-[#4CCE5B] transition-all delay-75  text-white flex justify-center items-center">
@@ -74,7 +132,11 @@ const MyJobs = () => {
                         .includes(search.toLocaleLowerCase());
                 })
                 ?.map((job) => (
-                  <MyJobsTable key={job._id} job={job}></MyJobsTable>
+                  <MyJobsTable
+                    handleDelete={handleDelete}
+                    key={job._id}
+                    job={job}
+                  ></MyJobsTable>
                 ))
             )}
           </table>
