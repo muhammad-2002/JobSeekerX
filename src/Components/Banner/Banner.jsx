@@ -16,9 +16,9 @@ const Banner = () => {
               hiring products and access to up to 10,000 new resume
               registrations daily, with no subscriptions or user licences.
             </p>
-            <div className="flex rounded-full ">
+            <div className="flex rounded-full  ">
               <input
-                className="md:py-4 py-2 px-4 md:pr-36 lg:pr-60 pr-12 rounded-l-md outline-none"
+                className="md:py-4 py-2  px-4 md:pr-36 lg:pr-60 pr-3 rounded-l-md outline-none"
                 placeholder="Job Title"
                 type="text"
               />

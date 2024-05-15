@@ -5,7 +5,10 @@ const TrustedPeople = () => {
     <div>
       <section className="">
         <div className="container gap-20 flex flex-col justify-center p-6 mx-auto sm:py-12 lg:py-24 lg:flex-row lg:justify-between">
-          <div className="flex items-center   justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 relative ">
+          <div
+            className="flex items-center my-9
+             justify-center p-6 mt-8 lg:mt-0 h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128 relative "
+          >
             <div className=" flex gap-8 relative ">
               <img
                 src="https://templates.hibootstrap.com/gable/default/assets/img/home-1/1.jpg"
@@ -18,12 +21,14 @@ const TrustedPeople = () => {
                 className="w-[40%] h-72"
               />
             </div>
-            <div className="absolute border-8 bottom-6 right-10 border-[#CCE6CF] flex justify-center items-center bg-[#3CAF4A] px-7 py-5 w-[350px] h-[80px]">
-              <h1 className="text-4xl text-white font-bold">100 % Trusted</h1>
+            <div className="absolute border-8 bottom-6 right-10 border-[#CCE6CF] flex justify-center items-center bg-[#3CAF4A] px-7 py-5 w-[200px] sm:w-[350px] h-[80px]">
+              <h1 className="sm:text-4xl text-2xl text-white font-bold">
+                100 % Trusted
+              </h1>
             </div>
           </div>
           <div className="flex flex-col justify-center  items-start -mt-14  text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
-            <h1 className="text-5xl font-semibold leading-none sm:text-5xl">
+            <h1 className="md:text-5xl text-3xl font-semibold leading-none sm:text-5xl">
               Trusted & Popular Job Portal
             </h1>
             <p className="mt-6 mb-8 text-lg sm:mb-12">

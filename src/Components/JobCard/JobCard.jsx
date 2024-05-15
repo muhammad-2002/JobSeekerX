@@ -43,8 +43,8 @@ const JobCard = ({ j }) => {
           className="border p-4 rounded hover:shadow-md jobs transition-all"
           style={{ borderColor: categoryColors[category] }}
         >
-          <div className="flex justify-between">
-            <div className="flex gap-3">
+          <div className="flex justify-between sm:flex-row flex-col">
+            <div className="flex flex-col sm:flex-row gap-3">
               <img className="w-[60px]" src={company_logo} alt="" />
               <div>
                 <h1 className="font-bold text-xl uppercase ">{job_title}</h1>
@@ -66,7 +66,7 @@ const JobCard = ({ j }) => {
             </div>
           </div>
           <hr className="my-5" />
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between flex-col sm:flex-row items-center">
             <div>
               <div className="flex gap-2">
                 <BsCoin style={{ color: categoryColors[category] }} />
