@@ -6,11 +6,13 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import useAuth from "../../Hook/useAuth";
+import useAdmin from "../hook/useAdmin";
 const Navbar = () => {
   const [sideOpen, setSideOpen] = useState(true);
   const [userOpen, setUserOpen] = useState(false);
   const navigate = useNavigate();
   const { user, logOutUser } = useAuth();
+  const [admin] = useAdmin();
   // const [openUser, setOpen] = useState(false);
 
   const savedTheme = localStorage.getItem("theme") || "light";
@@ -82,38 +84,7 @@ const Navbar = () => {
                 <span>All Jobs</span>
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <NavLink
-                  to="/add-job"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                      : "hover:text-[#4CCE5B]"
-                  }
-                >
-                  <span>Add Job</span>
-                </NavLink>
-              </li>
-            )}
-            {user && (
-              <li>
-                <NavLink
-                  to="/applied-job"
-                  className={({ isActive, isPending }) =>
-                    isPending
-                      ? "pending"
-                      : isActive
-                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
-                      : "hover:text-[#4CCE5B]"
-                  }
-                >
-                  <span>Applied job</span>
-                </NavLink>
-              </li>
-            )}
+
             <li>
               <NavLink
                 to="/blog"
@@ -128,10 +99,11 @@ const Navbar = () => {
                 <span>Blog</span>
               </NavLink>
             </li>
-            {user && (
+
+            {user && !admin && (
               <li>
                 <NavLink
-                  to={`/jobs/my-jobs/${user?.email}`}
+                  to={`/dashboard`}
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "pending"
@@ -140,7 +112,24 @@ const Navbar = () => {
                       : "hover:text-[#4CCE5B]"
                   }
                 >
-                  <span>My Jobs</span>
+                  <span>Dashboard</span>
+                </NavLink>
+              </li>
+            )}
+
+            {user && admin && (
+              <li>
+                <NavLink
+                  to={`/dashboard/admin`}
+                  className={({ isActive, isPending }) =>
+                    isPending
+                      ? "pending"
+                      : isActive
+                      ? "text-[#4CCE5B] border-b-4 border-[#4CCE5B]"
+                      : "hover:text-[#4CCE5B]"
+                  }
+                >
+                  <span>Dashboard</span>
                 </NavLink>
               </li>
             )}
@@ -313,7 +302,7 @@ const Navbar = () => {
             {user && (
               <li>
                 <NavLink
-                  to="/applied-job"
+                  to={`/dashboard/applied-job/${user?.email}`}
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "pending"

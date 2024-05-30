@@ -9,6 +9,9 @@ import MainLayout from "../MainLayout/MainLayout";
 import AddaJobs from "../pages/AddJob/AddJob";
 import ApplyJobs from "../pages/ApplyJobs/ApplyJobs";
 import Blog from "../pages/Blog/Blog";
+import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
@@ -47,14 +50,7 @@ const router = createBrowserRouter([
         path: "/blog",
         element: <Blog></Blog>,
       },
-      {
-        path: "/add-job",
-        element: (
-          <PrivateRoute>
-            <AddaJobs></AddaJobs>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/all-jobs",
         loader: () => fetch(`${import.meta.env.VITE_API}/jobs`),
@@ -64,13 +60,27 @@ const router = createBrowserRouter([
         path: "/jobs/apply-job/:id",
         element: <ApplyJobs></ApplyJobs>,
       },
+
       {
-        path: "/applied-job",
-        element: <AppliedJobs></AppliedJobs>,
-        loader: () => fetch(`${import.meta.env.VITE_API}/applied-job`),
+        path: "/update/:id",
+        element: <UpdateJob></UpdateJob>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "/dashboard",
+        element: <UserHome></UserHome>,
       },
       {
-        path: "/jobs/my-jobs/:email",
+        path: "/dashboard/admin",
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "/dashboard/jobs/my-jobs/:email",
         element: (
           <PrivateRoute>
             <MyJobs></MyJobs>
@@ -78,8 +88,18 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/update/:id",
-        element: <UpdateJob></UpdateJob>,
+        path: "/dashboard/applied-job/:email",
+        element: <AppliedJobs></AppliedJobs>,
+        loader: ({ params }) =>
+          fetch(`${"http://localhost:5000"}/applied-job/${params?.email}`),
+      },
+      {
+        path: "/dashboard/add-job",
+        element: (
+          <PrivateRoute>
+            <AddaJobs></AddaJobs>
+          </PrivateRoute>
+        ),
       },
     ],
   },

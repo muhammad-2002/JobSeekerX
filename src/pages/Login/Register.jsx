@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SocailLogin from "../../Components/SocailLogin/SocailLogin";
 import HeaderBanner from "../../Components/headerBanner/HeaderBanner";
 import useAuth from "../../Hook/useAuth";
 import registerPhoto from "../../assets/Register.png";
+import usePublicAxiosSecure from "./../../Components/hook/usePublicAxiosSecure";
 const Register = () => {
   const [passError, setPassError] = useState(null);
   const { createEmailAndPassword, UpdateUser } = useAuth();
+  const axiosPublicSecure = usePublicAxiosSecure();
   const {
     register,
     handleSubmit,
@@ -22,8 +25,19 @@ const Register = () => {
     }
     try {
       const data = await createEmailAndPassword(email, password);
+
       if (data) {
-        const UpdateData = await UpdateUser(name, photoURL);
+        try {
+          await UpdateUser(name, photoURL);
+          const userObj = {
+            email: data?.user?.email,
+            name: data?.user?.displayName,
+          };
+          const res = await axiosPublicSecure.post("/users", userObj);
+          console.log(res.data);
+        } catch (error) {
+          console.log(error);
+        }
 
         Swal.fire({
           position: "center",
@@ -36,7 +50,7 @@ const Register = () => {
     } catch (err) {
       console.log(err, "Error message");
     }
-    data.reset();
+    reset();
   };
   return (
     <div className=" mb-14">
@@ -133,6 +147,10 @@ const Register = () => {
                   Register
                 </button>
               </div>
+              <SocailLogin
+                button={"/login"}
+                title={"Already have account "}
+              ></SocailLogin>
             </form>
           </div>
           <div className="flex justify-center">

@@ -13,7 +13,8 @@ const JobDetail = () => {
   const par = useParams();
   const getData = async () => {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_API}/jobs/${par.id}`
+      `${import.meta.env.VITE_API}/jobs/${par.id}`,
+      { withCredentials: true }
     );
 
     return data;

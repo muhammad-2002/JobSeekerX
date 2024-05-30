@@ -1,6 +1,5 @@
 // import { useContext, useState } from "react";
 // import { Helmet } from "react-helmet";
-import { FcGoogle } from "react-icons/fc";
 // import { Link, useLocation, useNavigate } from "react-router-dom";
 // import swal from "sweetalert";
 // import { AuthContext } from "../../Providers/AuthProvider";
@@ -9,8 +8,9 @@ import pass from "../../assets/Pass.png";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocailLogin from "../../Components/SocailLogin/SocailLogin";
 import HeaderBanner from "../../Components/headerBanner/HeaderBanner";
 import useAuth from "../../Hook/useAuth";
 
@@ -161,22 +161,10 @@ const Login = () => {
                 </button>
               </div>
             </form>
-            <h2 className="text-center text-lg font-semibold">
-              Not a member ? Please{" "}
-              <Link to="/register" className="text-[#4CCE5B] underline">
-                Register
-              </Link>{" "}
-            </h2>
-            <h4 className="text-md text-center">OR</h4>
-            <div className="flex justify-center ">
-              <div
-                onClick={handleGoogle}
-                className="cursor-pointer flex items-center my-2 gap-3 justify-center w-[250px] border p-2 rounded-full"
-              >
-                <FcGoogle className="text-xl"></FcGoogle>
-                <h2 className=" text-md font-bold ">Continue with Google</h2>
-              </div>
-            </div>
+            <SocailLogin
+              button={"login"}
+              title={"Don't have Account "}
+            ></SocailLogin>
           </div>
           <div className="flex justify-center">
             <img src={pass} className=" " />

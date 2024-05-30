@@ -4,6 +4,7 @@ import ApplyJobTable from "./../ApplyJobTable/ApplyJobTable";
 
 const AppliedJobs = () => {
   const data = useLoaderData();
+  console.log(data);
   const [filtered, setFiltered] = useState(data);
 
   const handleChange = (e) => {

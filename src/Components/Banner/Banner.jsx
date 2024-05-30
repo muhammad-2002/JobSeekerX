@@ -18,7 +18,7 @@ const Banner = () => {
             </p>
             <div className="flex rounded-full  ">
               <input
-                className="md:py-4 py-2  px-4 md:pr-36 lg:pr-60 pr-3 rounded-l-md outline-none"
+                className="md:py-4 py-2  px-4 md:pr-36 lg:pr-60 -pr-5 rounded-l-md outline-none"
                 placeholder="Job Title"
                 type="text"
               />

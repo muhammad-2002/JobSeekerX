@@ -4,11 +4,9 @@ import React, { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import Swal from "sweetalert2";
 import MyJobsTable from "../MyJobsTable/MyJobsTable";
-import UseAxiosSecure from "../hook/UseAxiosSecure";
 import useAuth from "./../../Hook/useAuth";
 
 const MyJobs = () => {
-  const axiosSecure = UseAxiosSecure();
   const [search, setSearch] = useState("");
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -40,7 +38,8 @@ const MyJobs = () => {
   });
   const getData = async () => {
     const { data } = await axios.get(
-      `${import.meta.env.VITE_API}/my-jobs/${user?.email}`
+      `${import.meta.env.VITE_API}/my-jobs/${user?.email}`,
+      { withCredentials: true }
     );
 
     return data;
