@@ -91,7 +91,7 @@ const router = createBrowserRouter([
         path: "/dashboard/applied-job/:email",
         element: <AppliedJobs></AppliedJobs>,
         loader: ({ params }) =>
-          fetch(`${"http://localhost:5000"}/applied-job/${params?.email}`),
+          fetch(`${import.meta.env.VITE_API}/applied-job/${params?.email}`),
       },
       {
         path: "/dashboard/add-job",
