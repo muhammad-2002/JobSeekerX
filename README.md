@@ -1,6 +1,6 @@
 
 <div>
-<h1>Assignment ID: assignment_category_0003</h1>
+<h1>Job SeekerX</h1>
   <h3 align="center">---All necessary links ---</h3>      
 Website live link: https://jobseekrex.web.app/ </br>
 Client Side github link: https://github.com/Porgramming-Hero-web-course/b9a11-client-side-muhammad-2002</br>
@@ -44,5 +44,16 @@ Server side github link: https://github.com/Porgramming-Hero-web-course/b9a11-se
             <img src="https://i.ibb.co/pLjkT0K/Screenshot-2024-05-15-203111.png" alt="" />
                <p>
                 A unique and attention-grabbing footer section on your website can leave a lasting impression and enhance the user experience. Here are some ideas to create a distinctive footer section:Interactive Footer: Incorporate interactive elements such as a mini-gaming section, a quiz, or a poll that engages users and keeps them on your site longer. Live Social Feed: Display a live social media feed that shows your most recent posts and updates from your social channels. This can encourage visitors to follow you on social media.Weather Widget: Provide a local weather widget that automatically displays the current weather conditions and forecast for the user's location. It's especially useful for travel or event-related websites..</p>
+                ## Local Setup Instructions
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/your-repo/parcel-management-system.git
+   cd parcel-management-system
+
+2.**Install Dependencies:**
+   ```bash
+   npm install
+
  </div>
 
