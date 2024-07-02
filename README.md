@@ -3,7 +3,7 @@
 <h1>Job SeekerX</h1>
   <h3 align="center">---All necessary links ---</h3>      
 Website live link: https://jobseekrex.web.app/ </br>
-Client Side github link: github.com/muhammad-2002/JobSeekerX</br>
+Client Side github link: https://github.com/muhammad-2002/JobSeekerX</br>
 Server side github link: https://github.com/muhammad-2002/Job-SeekerX--Server </br>
 </h1>
    <h3 align="center">---Used Technology ---</h3>  
